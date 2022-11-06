@@ -36,7 +36,7 @@ Cycle 2:
 >/||<
 ```
 
-Eventually, the unit tiles run out, and `<` is killed, breaking the looping,
+Eventually, the unit tiles run out, and `<` is killed, breaking the loop,
 causing the program to eventually end. 
 
 ## Program Writing
@@ -143,4 +143,29 @@ to the right of it.
 ```
 In this example, the input tile, `+` tile and `@` tile are all pointing to the substack called `input1`.  
 This will take an input from stdin, add one to it, and then output the integer value to stdout. 
+
+### Stack calling
+The `&` tile can be used to call another stack file by name.
+Use value tiles (`*`) before and after the call to set the inputs and
+what should be used to store the outputs
+```
+*input1*input2*input3 &stackname *output1 *output2
+```
+When the called stack activates an input tile, it will use one of the input values provided instead of
+stdin.  
+When the called stack activates an output tile, it will set the value of one of the ouput stacks provided
+instead of outputting to stdout. 
+
+Let there be a stack file called "addTwo" which takes a single input, adds 2 to it, and then outputs the value:  
+*addTwo*
+```
+.>`1+1+1@1
+```
+
+Here is another file that will use "addTwo" twice to add four to a value:  
+```
+.>`userValue,2				# Takes in user input to `userValue` and then activates chuckpoint 2
+>2*userValue &addTwo *userValue,3	# Calls "addTwo" with the value of userValue as the input and userValue as the output and then activates chuckpoint 3
+>3*userValue &addTwo *userValue @userValue;	# Uses "addTwo" again and then outputs the value with a newline
+```
 	
