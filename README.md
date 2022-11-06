@@ -39,6 +39,28 @@ Cycle 2:
 Eventually, the unit tiles run out, and `<` is killed, breaking the looping,
 causing the program to eventually end. 
 
+## Program Writing
+
+Programs can be written with any file extension.  
+
+All whitespace is ignored.  
+
+Use a `#` to start a comment. Everyting is ignored until a newline
+
+Each line is given `=_=` at the end to guarantee complete isolation
+between lines except for the use of chuckpoints.
+
+Example file
+```
+.>,2	# Activates chuckpoint 2
+|\<2	# Gets activated and then kills the unit tile
+```
+
+Will be interpreted as:
+```
+.>,2=_=|\<2
+```
+
 
 ## Tiles
 ### Types
