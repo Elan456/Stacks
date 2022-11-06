@@ -1,0 +1,4 @@
+.>`1\`2\,3			# Collects user input
++6,3?1|+6@6			# Checks if i1 is still greater than 0
+-1+2!?2}>(^2!+2!,5}}>,1(	# Subtracts i2 from i1
+>3<,2{(5			# Drives line 3's stuff

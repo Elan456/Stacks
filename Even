@@ -1,0 +1,5 @@
+.>`1\,2			# Collecting the input value
+.>+10			# Initializing output values
+>2<,3{(5  		# Subtracts 2 from v1 until it is less than 2
+-1-1*1?3||,4,5}(	# Shoots right when v1 is less than 2
+@10=?4*1@11		# Shoots right if v1 is greater than 0 

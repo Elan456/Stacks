@@ -1,0 +1,23 @@
+.>`fibnum\,4-fibnum		# fibnum is which fib number the user wants, currentnum keeps track of how many we have gone through			
+>4+past2,7			# Initializes past2 to 1
+
+# Summing past1 and past2 to substack 3
+,8,6)*3?5*past1+3		# Adds substack past1 to 3; increments v3 until it equals vpast1 
+>7<,5{(6		# Drives adding substack past1 to 3 | 7 START 8 COMPLETION
+
+>8,11
+,12,10)?9*past2-past2+3		# Adds substack past2 to 3
+>11<,9{(10		# Drives past2 + to 3|  	past1past1 START past1past2 COMPLETION
+
+# Setting past2 to past1
+>12~past2,15		# Clearing substack past2 and starting conversion
+,16,14)?13*past1-past1+past2	# Subtracts from substack past1 and adds to substack past2
+>15<,13{(14		# Drives setting past2 to past1|  past15 START past16 COMPLETION
+
+# Setting past1 to 3
+>16~past1,19		# Clears substack past1 (it should already by 0 from the last step) and starts conversion
+,20,18)?17*3-3+past1	# Increases substack past1 and decreases substack 3 until substack 3 is zero
+>19<,17{(18		# Drives setting substack past1 to 3| past19 START 20 COMPLETION
+
+>20+currentnum,21@past1;		# Increments the number of fibonacci numbers by past1
+*currentnum?21*fibnum~3,7		# Checks if we are done shoots left when done

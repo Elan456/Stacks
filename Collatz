@@ -1,0 +1,21 @@
+.>`1,6 			# User input
+,5,4)*2?3*1+2			# Copying v1 to v2 | ACTIVATE 6 TO START COPY; 5 IS ACTIVATED ON COMPLETION
+>6<,3{(4			# Drives the copying of *1 to v2
+
+>5,10				# When the copying completes check if it is even or odd
+
++31-2-2*2?7||,8,9}(		# Subtracts 2 from *2 unless v2 is less than 2
+>10<,7{(8			# Drives the subtraction from *2 | ACTIVATE 10 TO START EVEN CHECK; 9 IS ACTIVATED ON COMPLETION
+				# *2 is equal to 0 if e*en; 1 if odd  # *31 is equal to half of v2
+,13?9*2,14~31			# If *2 is 0, use *31 as is (half of *2), else set *31 to *1 multiply by 3 and add 1
+
+,13,12+31)?11*1+31+31+31-1	# Adds 3 to *31 if v1 is greater than 0 and subtracts 1 from v1 
+>14<,11{(12			# Drives the creation of *31 as 3* *1 | 14 to START; 13 on completion
+
+>13>17,23+99@31;~1(		# Combines 13 and 17 to activate to 23 also outputs substack 31 and clears *1
+
+,22,21)*1?20*31+1		# Copying v31 to v1 | 23 to START; 22 on completion
+>23<,20{(21			# Drives the copying of *31 onto v1
+
+>22~31~2,24			# Clears *31 and *2 activates 23
+;@99|?24*1,6			# Shoots left if *1 is equal to 1, right restarts the cycle
