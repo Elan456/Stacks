@@ -1,29 +1,32 @@
 # Stacks
 
-A stack is a linear collection of tiles.
+A stack is a linear collection of tiles that interact with each other to do stuff.
 
-The flow of the program is completly dictated by the use of activators.
+Tiles do things when they are activated depending on their type and point.
+
+The flow of the program is completely dictated by the use of activators.
 When a tile is activated, it will be assigned an activation moment which
 describes the cycle on which that tile will do something.
 
 If no tiles are activated, the program ends because tiles are needed to
 activate other tiles.
 
-To start the program, initilization tiles `.` are used to activate the first
-tiles. They are destroyed after start. 
+To start the program, initialization tiles `.` are used to activate the first
+tiles. They are destroyed after start, leaving activators with the duty of keeping
+the program running until what's desired is done. 
 
 ## First program
 
 ```
 .>/|||<
 ```
-On start, the `.` is used to activate the `>`, then the `.` is removed
+On start, the `.` is used to activate the `>`, then the `.` is removed.
 
 Cycle 0:
 ```
 >/|||<
 ```
-Because of the initilization activator, the `>` has an activation moment for cycle 1.
+Because of the initialization activator, the `>` has an activation moment for cycle 1.
 So, on cycle 1, `>` will activate everything to the right of it, including the killer `/` and
 the activator `<`. 
 
@@ -45,10 +48,10 @@ Programs can be written with any file extension.
 
 All whitespace is ignored.  
 
-Use a `#` to start a comment. Everyting is ignored until a newline
+Use a `#` to start a comment. Everything is ignored until a newline.
 
-Each line is given `=_=` at the end to guarantee complete isolation
-between lines except for the use of chuckpoints.
+Seperating tiles with a newline is completly optional and functions the same as putting a `=_=` to guarantee complete isolation
+between lines.
 
 Example file
 ```
