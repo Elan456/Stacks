@@ -2,6 +2,44 @@
 
 A stack is a linear collection of tiles.
 
+The flow of the program is completly dictated by the use of activators.
+When a tile is activated, it will be assigned an activation moment which
+describes the cycle on which that tile will do something.
+
+If no tiles are activated, the program ends because tiles are needed to
+activate other tiles.
+
+To start the program, initilization tiles `.` are used to activate the first
+tiles. They are destroyed after start. 
+
+## First program
+
+```
+.>/|||<
+```
+On start, the `.` is used to activate the `>`, then the `.` is removed
+
+Cycle 0:
+```
+>/|||<
+```
+Because of the initilization activator, the `>` has an activation moment for cycle 1.
+So, on cycle 1, `>` will activate everything to the right of it, including the killer `/` and
+the activator `<`. 
+
+This program creates a loop where `>` activates `<` back and forth. However, each 
+time they activate each other, the killer `/` also gets activated and kills
+one of the unit tiles on its right.
+
+Cycle 2:
+```
+>/||<
+```
+
+Eventually, the unit tiles run out, and `<` is killed, breaking the looping,
+causing the program to eventually end. 
+
+
 ## Tiles
 ### Types
 #### Activators
@@ -74,4 +112,13 @@ Blocks all activations and deactivations
 Cannot be killed by the killers
 * `|`
 Does nothing and acts as a single unit
+
+### Points
+Every tile can be assigned a point on start by putting some numbers and letters
+to the right of it.
+```
+.>`input1+input1@input1
+```
+In this example, the input tile, `+` tile and `@` tile are all pointing to the substack called `input1`.  
+This will take an input from stdin, add one to it, and then output the integer value to stdout. 
 	
