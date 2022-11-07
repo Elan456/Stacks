@@ -12,8 +12,6 @@
 #include <algorithm>
 using namespace std;
 
-int maxAct = 0;
-
 // 0 - does nothing
 // < - activates all below
 // > - activates all above
@@ -119,7 +117,7 @@ class Tile{
 		void show(){
 			cout << "type: " << type << " act: " << act << " loc: " << loc << " point: " << point << endl;
 		}
-		void activator(vector<Tile> &stack, int d, int startloc){
+		void activator(vector<Tile> &stack, int d, int startloc, int &maxAct){
 			// d is the direction either +1 for up or -1 for down
 			for (int i = startloc + d; i < stack.size() && i >= 0; i+= d){
 				if (stack[i].act == 0 && stack[i].activatable) {
@@ -218,7 +216,7 @@ class Tile{
 
 	
 		// Determines what to do with each character when they are activated
-		void activate(vector<Tile> &stack,int inloc, vector<vector<Tile>> &subStacks, vector<int> &inputs, vector<int> &outputs){
+		void activate(vector<Tile> &stack,int inloc, vector<vector<Tile>> &subStacks, vector<int> &inputs, vector<int> &outputs, int &maxAct){
 			int remove = 0; // 0 will not remove, 1, -1 will remove in a direction
 			int chuckPointLoc;
 			int right;
@@ -232,10 +230,10 @@ class Tile{
 			switch(type){
 				// < and > are activators, they activate other stuff
 				case('<'):
-					activator(stack, -1, loc);
+					activator(stack, -1, loc, maxAct);
 					break;
 				case('>'):
-					activator(stack, 1, loc);
+					activator(stack, 1, loc, maxAct);
 					break;
 				case(')'):
 					deactivator(stack, 1, loc);
@@ -244,7 +242,7 @@ class Tile{
 					deactivator(stack, -1, loc);
 					break;
 				case ('?'):
-					activator(stack, findMostUnitsDirection(stack, subStacks), loc);
+					activator(stack, findMostUnitsDirection(stack, subStacks), loc, maxAct);
 					break;
 				case('/'):
 					remove = 1;
@@ -439,10 +437,10 @@ int getSoonestActivation(vector<Tile> &stack){
 	return mLoc;
 }
 
-bool runCycle(vector<Tile> &stack, vector<vector<Tile>> &subStack, vector<int> &inputs, vector<int> &outputs){
+bool runCycle(vector<Tile> &stack, vector<vector<Tile>> &subStack, vector<int> &inputs, vector<int> &outputs, int &maxAct){
 	int loc = getSoonestActivation(stack);
 	if (stack[loc].act != 0){
-		stack[getSoonestActivation(stack)].activate(stack, loc, subStack, inputs, outputs);
+		stack[getSoonestActivation(stack)].activate(stack, loc, subStack, inputs, outputs, maxAct);
 		return true; // Keep going
 	} else {
 		return false; // Time to stop because everything is deactivated
@@ -473,10 +471,12 @@ int main(int argc, char* argv[]){
 
 }
 int runStack(string tempStack, vector<int> &inputs, vector<int> &outputs, bool called = false, bool askForCycles = false, bool showStack = false){
+	
 	int cycle = 0;
 	int again = 1;
 	bool go = true;
 	int val;
+	int maxAct = 0;
 	
 	// Creating vectors to keep track of i/o for called stacks
 
@@ -502,7 +502,7 @@ int runStack(string tempStack, vector<int> &inputs, vector<int> &outputs, bool c
 	}
 	for (int i = 0; i<stack.size(); i++){
 		if (stack[i].type == '.'){ // activates all the dots
-			stack[i].activate(stack, i, subStacks, inputs, outputs);
+			stack[i].activate(stack, i, subStacks, inputs, outputs, maxAct);
 		}
 	}
 
@@ -556,7 +556,7 @@ int runStack(string tempStack, vector<int> &inputs, vector<int> &outputs, bool c
 	if (askForCycles){cin >> again;}
 	while ((!askForCycles || again > 0) && go){
 		again--;
-		go = runCycle(stack, subStacks, inputs, outputs);
+		go = runCycle(stack, subStacks, inputs, outputs, maxAct);
 		cycle++;
 		if (showStack){displayStack(stack, subStackNames, subStacks, cycle);}
 		if (again < 1 && askForCycles){

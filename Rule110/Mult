@@ -1,0 +1,4 @@
+.>`1`2,3-2		# Grab input data
+,5)*t?3*1+t,3		# Copy 1 to t
+,6)?5*t-t+f,5		# Add t to f
+;@f)?6*2-2,3		# Decrement 2 and check if it is greater than 0
